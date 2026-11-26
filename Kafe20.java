@@ -1,5 +1,5 @@
 public class Kafe20 {
-    public static void Menu(String namaPelanggan, boolean isMember) {
+    public static void Menu() {
         System.out.println("Selamat Datang, " + namaPelanggan + "!");
         if (isMember) {
             System.out.println("Anda adalah member, sehingga anda mendapatkan diskon 10% setiap pembelian");
