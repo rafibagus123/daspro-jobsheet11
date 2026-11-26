@@ -30,6 +30,32 @@ public class Kafe20 {
         return hargaTotal;
     }
 
+    public static double hitungDiskon(int total, String kodePromo, boolean isMember) {
+        double diskon = 0;
+        if ("DISKON50".equals(kodePromo)) {
+            System.out.println("\nKode promo terpakai");
+            System.out.println("Anda mendapat diskon 50%");
+            if (isMember) {
+                System.out.println("Karena anda member, anda mendapatkan 10% diskon lagi");
+                diskon = total * 0.6;
+            } else {
+                diskon = total * 0.5;
+            }
+        } else if ("DISKON30".equals(kodePromo)) {
+            System.out.println("\nKode promo terpakai");
+            System.out.println("Anda mendapat diskon 30%");
+            if (isMember) {
+                System.out.println("Karena anda member, anda mendapatkan 10% diskon lagi");
+                diskon = total * 0.4;
+            } else {
+                diskon = total * 0.3;
+            }
+        } else {
+            System.out.println("\nKode promo invalid");
+        }
+        return diskon;
+    }
+
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
         Menu("Andi", true);
@@ -47,16 +73,22 @@ public class Kafe20 {
             } while (pilihanMenu < 1 || pilihanMenu > 6);
             System.out.print("Masukkan jumlah item yang ingin dipesan: ");
             int banyakItem = sc.nextInt();
-            
+
             int bayar = hitungTotalHarga20(pilihanMenu, banyakItem);
             totalBayar += bayar;
-            
+
             System.out.print("Apakah anda ingin memesan lagi? (y/n): ");
             pesan = sc.next();
-            
-            
-        } while (pesan.equalsIgnoreCase("y"));
 
-        System.out.println("Total harga untuk pesanan Anda: Rp" + totalBayar);
+        } while (pesan.equalsIgnoreCase("y"));
+        sc.nextLine();
+
+        System.out.print("Masukkan kode promo: ");
+        String promo = sc.nextLine();
+        double diskon = hitungDiskon(totalBayar, promo, true);
+        double totalAkhir = totalBayar - diskon;
+
+        System.out.println("\nTotal diskon: Rp" + diskon);
+        System.out.println("Total bayar: Rp" + totalAkhir);
     }
 }
