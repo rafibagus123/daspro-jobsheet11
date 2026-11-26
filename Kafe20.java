@@ -1,15 +1,11 @@
 import java.util.Scanner;
 
 public class Kafe20 {
-    public static void Menu(String namaPelanggan, boolean isMember, int jamKunjung) {
+    public static void Menu(String namaPelanggan, boolean isMember) {
 
         System.out.println("\nSelamat Datang, " + namaPelanggan + "!");
         if (isMember) {
             System.out.println("Anda adalah member, sehingga anda mendapatkan diskon 10% setiap pembelian");
-        }
-
-        if (jamKunjung <= 16 && jamKunjung >= 14) {
-            System.out.println("Happy Hour! Diskon 20% untuk semua minuman");
         }
 
         System.out.println(" ===== MENU RESTO KAFE ===== ");
@@ -27,26 +23,40 @@ public class Kafe20 {
         return 6;
     }
 
-    public static void ubahNama(String nama) {
-        nama = "Tamu";
-        System.out.println("Di dalam fungsi: " + nama);
+    public static int hitungTotalHarga20(int pilihanMenu, int banyakItem) {
+        int[] hargaItems = { 15000, 20000, 22000, 12000, 10000, 18000 };
 
+        int hargaTotal = hargaItems[pilihanMenu - 1] * banyakItem;
+        return hargaTotal;
     }
 
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
-        System.out.print("Masukkan nama: ");
-        String nama = sc.nextLine();
-        System.out.print("Apakah anda memiliki membership? (y/n): ");
-        boolean membership = sc.next().equalsIgnoreCase("y");
-        System.out.print("Masukkan jam kunjung anda: ");
-        int jam = sc.nextInt();
-        Menu(nama, membership, jam);
-        System.out.println("Jumlah menu: " + jumlahMenu());
+        Menu("Andi", true);
+        int totalBayar = 0;
+        String pesan;
+        int pilihanMenu;
+
+        do {
+            do {
+                System.out.print("\nMasukkan nomor menu yang ingin Anda pesan: ");
+                pilihanMenu = sc.nextInt();
+                if (pilihanMenu < 1 || pilihanMenu > 6) {
+                    System.out.println("Nomor menu tidak valid, silahkan masukkan nomor menu lagi");
+                }
+            } while (pilihanMenu < 1 || pilihanMenu > 6);
+            System.out.print("Masukkan jumlah item yang ingin dipesan: ");
+            int banyakItem = sc.nextInt();
+            
+            int bayar = hitungTotalHarga20(pilihanMenu, banyakItem);
+            totalBayar += bayar;
+            
+            System.out.print("Apakah anda ingin memesan lagi? (y/n): ");
+            pesan = sc.next();
+            
+            
+        } while (pesan.equalsIgnoreCase("y"));
+
+        System.out.println("Total harga untuk pesanan Anda: Rp" + totalBayar);
     }
 }
-// public static void main(String[] args) {
-// String nama = "Andi";
-// ubahNama(nama);
-// System.out.println("Di main: " + nama);
-// }
